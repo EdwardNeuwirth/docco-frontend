@@ -6,16 +6,16 @@ const apiMiddleware = store => next => action => {
 
   if (!api) return next(action);
 
-  const defaultHeaders = {
+  const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   };
 
   const state = store.getState();
   if (state.authToken) {
+    headers.authorization = `Bearer ${state.authToken}`;
   }
-  defaultHeaders.Authorization = `Bearer 2`;
-
+  headers.authorization = `Bearer 2`;
   // THE FETCH
   next({
     type: `${action.type}_PENDING`
@@ -25,7 +25,7 @@ const apiMiddleware = store => next => action => {
   fetch(`http://localhost:3008/${api.route}`, {
     method: api.method || 'GET',
     headers: {
-      ...defaultHeaders,
+      ...headers,
       ...api.headers,
     },
     body: api.body,

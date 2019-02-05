@@ -52,7 +52,6 @@ class ContractSection extends Component {
 
   render() {
     const { info } = this.props;
-    console.log('these are the props in the contract section', this.props);
     const { yContent, tContent, contract } = info;
     let content = 'No Content'
     // the if logic is necessary because at (the dev stage I don't always pass a contract); can be removed in final

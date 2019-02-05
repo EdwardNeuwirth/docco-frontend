@@ -28,11 +28,9 @@ const getOne = (api) => ({
   api
 });
 
-const postNeg = () => ({
-  type: 'POST_NEG',
-  api: {
-    route: 'parties'
-  }
+const postNewNegotiation = (api) => ({
+  type: 'POST_NEGOTIATION',
+  api
 });
 
 const getUser = api => ({
@@ -50,7 +48,7 @@ export {
   signUp,
   login,
   getAll,
-  postNeg,
+  postNewNegotiation,
   getOne,
   getUser
 }

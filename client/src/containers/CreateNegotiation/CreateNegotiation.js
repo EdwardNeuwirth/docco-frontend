@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './CreateNegotiation.css';
-import TitleAndDescriptionPage from '../../components/TitleAndDescriptionPage';
 import ProgressTracker from '../../components/ProgressTracker';
+import TitleAndDescriptionPage from '../../components/TitleAndDescriptionPage';
 import AddParties from '../../components/AddPartiesPage';
 import AddFiles from '../../components/AddFiles';
-import {negotiationSchema} from '../../redux/middlewares/schemas/schemas';
-import {postNeg} from '../../redux/actions'
+import { negotiationSchema } from '../../redux/middlewares/schemas/schemas';
+import { postNewNegotiation } from '../../redux/actions'
 
 
 export class CreateNegotiation extends Component {
@@ -18,14 +18,11 @@ export class CreateNegotiation extends Component {
         title: '',
         description: '',
         files: [],
-        // Todo: email party a is hardcoded for now, change that
-        party_a_email: 'hans@butt-insurance.com',
-        party_b_email: ''
+        partyBEmail: '',
       }
     };
 
   }
-
 
   handleInputChange = event => {
     const { document } = this.state;
@@ -41,21 +38,20 @@ export class CreateNegotiation extends Component {
 
   handleCreateNegotiation = () => {
     const { document } = this.state;
-    const {postIt, email} = this.props;
-    const newNeg = {
+    const { postNegotiation } = this.props;
+    const newNegotiation = {
       title: document.title,
       description: document.description,
-      party_a: email,
-      party_b: document.party_b_email,
-      files: document.files
+      partyB: document.partyBEmail,
+      content: document.files[0],
     };
     const api = {
       route: 'negotiations',
       schema: negotiationSchema,
       method: 'POST',
-      body: newNeg
+      body: JSON.stringify(newNegotiation),
     }
-    postIt(api);
+    postNegotiation(api);
   };
 
   handleFileContent = content => {
@@ -112,15 +108,11 @@ export class CreateNegotiation extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.authentication.user.email
-})
-
 const mapDispatchToProps = (dispatch) => ({
-  postIt: (obj) => dispatch(postNeg(obj))
+  postNegotiation: (api) => dispatch(postNewNegotiation(api)),
 })
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CreateNegotiation)
