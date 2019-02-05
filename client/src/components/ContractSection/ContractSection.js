@@ -1,9 +1,9 @@
+import woofmark from 'woofmark';
+import megamark from 'megamark';
+import domador from 'domador';
 import React, { Component } from 'react';
 import './ContractSection.css';
 
-const woofmark = require('woofmark');
-const megamark = require('megamark');
-const domador = require('domador');
 
 class ContractSection extends Component {
 
@@ -51,6 +51,7 @@ class ContractSection extends Component {
   }
 
   render() {
+
     const { info } = this.props;
     const { yContent, tContent, contract } = info;
     let content = 'No Content'
@@ -64,6 +65,7 @@ class ContractSection extends Component {
       content = content2;
     }
     console.log('this os the content', content)
+
     return (
       <div className="contract-container">
         <div className="content-body">
